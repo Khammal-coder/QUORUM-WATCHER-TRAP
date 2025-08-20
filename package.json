@@ -1,0 +1,14 @@
+{
+  "name": "quorum-watcher-trap",
+  "version": "0.0.1",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest",
+    "@types/bun": "latest"
+  },
+  "module": "index.ts",
+  "private": true,
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
