@@ -15,9 +15,8 @@ contract Deploy is Script {
         MockERC20 mockToken = new MockERC20("Mock Token", "MTKN", 18);
 
         // Deploy the QuorumWatcherResponse contract
-        // The prover address is a placeholder and should be replaced with the actual Drosera prover address.
-        address proverAddress = vm.envAddress("PROVER_ADDRESS");
-        QuorumWatcherResponse responseContract = new QuorumWatcherResponse(proverAddress);
+        // The QuorumWatcherResponse contract no longer requires a prover address.
+        QuorumWatcherResponse responseContract = new QuorumWatcherResponse();
 
         vm.stopBroadcast();
 

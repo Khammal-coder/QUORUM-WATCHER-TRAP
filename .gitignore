@@ -27,3 +27,7 @@ coverage/
 
 # Foundry
 foundry.lock
+
+# Local files
+README.txt
+DEPLOY_DETAILS.md

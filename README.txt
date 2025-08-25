@@ -21,15 +21,13 @@ If `shouldRespond()` returns `true`, the Drosera network will trigger a transact
     - It hardcodes the address of the token to be monitored (`token`) and the address of the stakeholder to be watched (`trackedAddress`).
     - The `collect()` function returns the current balance of the `trackedAddress`.
     - The `shouldRespond()` function compares the balance over time and returns `true` if the balance has dropped by more than the `BALANCE_THRESHOLD`.
-    - It includes a whitelist of addresses that are allowed to call the `collect()` function.
 
 ### 2. `QuorumWatcherResponse.sol`
 
 - **Purpose:** This contract is called by the Drosera network when the trap is triggered.
 - **Functionality:**
-    - The `executeResponse()` function is called by a trusted Drosera prover.
-    - It decodes the data sent from the trap, which includes the tracked address, the initial and current balances, and the balance drop.
-    - It emits a `QuorumAlert` event with this information. This event can be monitored by off-chain services or other smart contracts.
+    - The `executeResponse()` function is called by the Drosera network.
+    - It emits a `QuorumAlert` event with information about the balance drop.
 
 ### 3. `MockERC20.sol`
 
@@ -47,7 +45,7 @@ If `shouldRespond()` returns `true`, the Drosera network will trigger a transact
 
 - **Purpose:** This is the test suite for the `QuorumWatcherTrap` contract.
 - **Functionality:**
-    - It uses Foundry to test all the functionality of the trap, including the `collect` and `shouldRespond` functions, as well as the whitelist mechanism.
+    - It uses Foundry to test all the functionality of the trap, including the `collect` and `shouldRespond` functions.
 
 ### 6. `drosera.toml`
 
@@ -57,32 +55,4 @@ If `shouldRespond()` returns `true`, the Drosera network will trigger a transact
 
 ## Deployment Process
 
-The deployment process is divided into two main steps:
-
-### Step 1: Deploy the Response Contract (with Foundry)
-
-The `QuorumWatcherResponse` contract needs to be deployed to the blockchain before the trap can be deployed. This is because the address of the response contract needs to be included in the `drosera.toml` file.
-
-1.  **Set up your environment:** You will need to have an RPC URL and a private key for the account you want to deploy from. You can set these as environment variables:
-    ```bash
-    export RPC_URL=<your_rpc_url>
-    export PRIVATE_KEY=<your_private_key>
-    export PROVER_ADDRESS=<drosera_prover_address>
-    ```
-2.  **Run the deployment script:** Use the following Foundry command to deploy the `QuorumWatcherResponse` contract:
-    ```bash
-    forge script script/Deploy.s.sol --rpc-url $RPC_URL --private-key $PRIVATE_KEY --broadcast
-    ```
-3.  **Get the contract address:** The script will print the address of the deployed `QuorumWatcherResponse` contract. Copy this address.
-
-### Step 2: Deploy the Trap Contract (with Drosera CLI)
-
-Now that you have the address of the response contract, you can deploy the main trap.
-
-1.  **Update `drosera.toml`:** Open the `drosera.toml` file and replace the placeholder for `response_contract` with the actual address of the `QuorumWatcherResponse` contract that you deployed in the previous step.
-2.  **Deploy the trap:** Use the Drosera CLI to deploy the trap.
-    ```bash
-    drosera traps deploy quorumwatchertrap
-    ```
-
-This will deploy the `QuorumWatcherTrap` contract and register it with the Drosera network. The network will then start monitoring the trap and trigger the response contract if the conditions are met.
+For detailed deployment instructions, please see the `DEPLOY_DETAILS.md` file.

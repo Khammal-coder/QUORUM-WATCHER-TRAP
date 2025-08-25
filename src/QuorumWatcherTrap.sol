@@ -16,30 +16,17 @@ contract QuorumWatcherTrap is ITrap {
 
     // @dev The address of the major stakeholder whose balance is being monitored.
     //      HARDCODED: Replace with the actual address of the stakeholder to watch.
-    address public constant trackedAddress = 0x59e92612551442b74683215932482259ba2B4823;
+    address public constant trackedAddress = 0x59E2612551442b74683215932482259BA2b48239;
 
     // @dev The minimum balance drop required to trigger the trap.
     uint256 public constant BALANCE_THRESHOLD = 1000 * 1e18; // Example: 1000 tokens with 18 decimals
 
-    // @dev A whitelist of addresses that are allowed to interact with this trap.
-    mapping(address => bool) public whitelist;
-
-    /// @notice The constructor is used to whitelist the initial operator.
-    /// @dev When deployed with Drosera, `msg.sender` will be the Drosera deployment address.
-    ///      You may need to add other operators to the whitelist manually after deployment.
-    constructor() {
-        whitelist[msg.sender] = true;
-    }
-
-    /// @notice A modifier to ensure that only whitelisted addresses can call a function.
-    modifier onlyWhitelisted() {
-        require(whitelist[msg.sender], "QuorumWatcherTrap: Caller is not whitelisted");
-        _;
-    }
+    /// @notice The constructor is empty as there is no whitelist to initialize.
+    constructor() {}
 
     /// @notice Collects the current balance of the tracked address.
     /// @return A bytes array containing the encoded balance of the tracked address.
-    function collect() external view override onlyWhitelisted returns (bytes memory) {
+    function collect() external view override returns (bytes memory) {
         uint256 balance = token.balanceOf(trackedAddress);
         return abi.encode(balance);
     }
@@ -70,17 +57,5 @@ contract QuorumWatcherTrap is ITrap {
         }
 
         return (false, "");
-    }
-
-    /// @notice Adds a new address to the whitelist.
-    /// @param _operator The address to add to the whitelist.
-    function addOperator(address _operator) external onlyWhitelisted {
-        whitelist[_operator] = true;
-    }
-
-    /// @notice Removes an address from the whitelist.
-    /// @param _operator The address to remove from the whitelist.
-    function removeOperator(address _operator) external onlyWhitelisted {
-        whitelist[_operator] = false;
     }
 }
