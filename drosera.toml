@@ -1,4 +1,4 @@
-ethereum_rpc = "https://ethereum-hoodi-rpc.publicnode.com"
+ethereum_rpc = "https://rpc.ankr.com/eth_hoodi/df7a38a423459bcf0c5755c4e3db4bc8986dfe74a255e0a7e734edc2d6513316"
 drosera_rpc = "https://relay.hoodi.drosera.io"
 eth_chain_id = 560048
 drosera_address = "0x91cB447BaFc6e0EA0F4Fe056F5a9b1F14bb06e5D"
@@ -7,15 +7,15 @@ drosera_address = "0x91cB447BaFc6e0EA0F4Fe056F5a9b1F14bb06e5D"
 
 [traps.quorumwatchertrap]
 # Path to the main trap contract source file.
-path = "src/QuorumWatcherTrap.sol"
+path = "out/QuorumWatcherTrap.sol/QuorumWatcherTrap.json"
 
 # Address of the response contract that will be called when the trap is triggered.
 # IMPORTANT: This address must be replaced with the actual address of the 
 # QuorumWatcherResponse contract after it has been deployed using the Deploy.s.sol script.
-response_contract = "0xRESPONSE_CONTRACT_ADDRESS_PLACEHOLDER"
+response_contract = "0x172Dd671EFa50C29257Ea7a20526ff1BB31c344B"
 
 # The function signature of the response contract to be called.
-response_function = "executeResponse(bytes)"
+response_function = "executeResponse(address,uint256,uint256,uint256)"
 
 # The number of blocks to wait before the trap can be triggered again.
 cooldown_period_blocks = 33
@@ -27,11 +27,11 @@ min_number_of_operators = 1
 max_number_of_operators = 2
 
 # The number of blocks to sample for the trap's `collect` function.
-block_sample_size = 8
+block_sample_size = 10
 
 # Whether the trap is private (only whitelisted operators can participate).
 private_trap = true
 
 # A list of whitelisted operator addresses for a private trap.
 # This can be left empty if you intend to add operators manually later.
-whitelist = []
+whitelist = ["0xeb7457cc56948480e1bf6465d1844858f8d09807"]

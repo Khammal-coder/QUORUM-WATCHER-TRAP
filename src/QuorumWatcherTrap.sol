@@ -12,11 +12,11 @@ import {IERC20} from "src/interfaces/IERC20.sol";
 contract QuorumWatcherTrap is ITrap {
     // @dev The address of the ERC20 token to monitor.
     //      HARDCODED: Replace with the actual token address on the target network.
-    IERC20 public constant token = IERC20(0x240ba5511552443631553a59f49334A438ea4653);
+    IERC20 public constant token = IERC20(0xC2bB5d594Ea8343113eed906Eb6D3a1973BA6DAc);
 
     // @dev The address of the major stakeholder whose balance is being monitored.
     //      HARDCODED: Replace with the actual address of the stakeholder to watch.
-    address public constant trackedAddress = 0x59E2612551442b74683215932482259BA2b48239;
+    address public constant trackedAddress = 0xEb7457cc56948480e1bf6465D1844858F8d09807;
 
     // @dev The minimum balance drop required to trigger the trap.
     uint256 public constant BALANCE_THRESHOLD = 1000 * 1e18; // Example: 1000 tokens with 18 decimals
